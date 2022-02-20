@@ -20,4 +20,8 @@ class AppModule {
     @Singleton
     @Provides
     fun provideSudokuDao(appDatabase: AppDatabase) = appDatabase.sudokuDao()
+
+    @Singleton
+    @Provides
+    fun provideLevelScoreDao(appDatabase: AppDatabase) = appDatabase.levelScoreDao()
 }

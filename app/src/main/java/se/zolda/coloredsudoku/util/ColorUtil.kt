@@ -5,10 +5,15 @@ import android.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import se.zolda.coloredsudoku.R
+import kotlin.random.Random
 
 fun Int.getLighterColor(context: Context, ratio: Float): Int {
     val color = ContextCompat.getColor(context, this)
     return ColorUtils.blendARGB(color, Color.WHITE, ratio)
+}
+
+fun getRandomColor(): Int?{
+    return getColorForValue(Random.nextInt(1, 9))
 }
 
 fun getColorForValue(value: Int): Int? {

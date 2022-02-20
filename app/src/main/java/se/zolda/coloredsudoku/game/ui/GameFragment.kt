@@ -128,7 +128,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
             gameState = it.sudokuBoardState
             when(gameState){
                 SudokuBoardState.SOLVED -> {
-                    binding.clock.stop()
+                    onPuzzleSolved()
                 }
                 else -> {
                     adapter.update(it)
@@ -143,36 +143,6 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
             }
         }
 
-        viewModel.puzzleSolved.observe(viewLifecycleOwner) {
-            when (it) {
-                true -> {
-                    binding.clock.stop()
-                    AppPreferences.timer = 0
-                    binding.confetti.start(
-                        Party(
-                            speed = 0f,
-                            maxSpeed = 30f,
-                            damping = 0.9f,
-                            spread = 360,
-                            size = listOf(Size.LARGE),
-                            colors = getListOfColors(requireContext()),
-                            emitter = Emitter(duration = 200, TimeUnit.MILLISECONDS).max(200),
-                            position = Position.Relative(0.5, 0.3)
-                        )
-                    )
-                    AnimationManager.reverseHalfAlphaAnimation(binding.mainLayout, {
-                        binding.mainLayout.alpha = 0.5f
-                    })
-                    AnimationManager.scaleUp(binding.levelCompleteLayout, {})
-                    binding.levelCompleteLayout.show()
-                }
-                else -> {
-                    enableButtons(true)
-                }
-            }
-            //findNavController().navigate(R.id.action_gameFragment_to_gameFragment)
-        }
-
         viewModel.noteSelected.observe(viewLifecycleOwner) {
             binding.actionButtons.noteButton.setCellDrawable(R.drawable.game_notes_button_bg)
             if (it) binding.actionButtons.noteButton.background.setDrawableTint(requireContext(), R.color.notes)
@@ -183,6 +153,27 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
                 )
             )
         }
+    }
+
+    private fun onPuzzleSolved(){
+        binding.clock.stop()
+        binding.confetti.start(
+            Party(
+                speed = 0f,
+                maxSpeed = 30f,
+                damping = 0.9f,
+                spread = 360,
+                size = listOf(Size.LARGE),
+                colors = getListOfColors(requireContext()),
+                emitter = Emitter(duration = 200, TimeUnit.MILLISECONDS).max(200),
+                position = Position.Relative(0.5, 0.3)
+            )
+        )
+        AnimationManager.reverseHalfAlphaAnimation(binding.mainLayout, {
+            binding.mainLayout.alpha = 0.5f
+        })
+        AnimationManager.scaleUp(binding.levelCompleteLayout, {})
+        binding.levelCompleteLayout.show()
     }
 
     private fun startClock() {

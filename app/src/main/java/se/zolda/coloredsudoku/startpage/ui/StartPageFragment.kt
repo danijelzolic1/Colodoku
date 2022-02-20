@@ -10,10 +10,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import se.zolda.coloredsudoku.R
 import se.zolda.coloredsudoku.databinding.FragmentStartPageBinding
-import se.zolda.coloredsudoku.util.AnimationManager
-import se.zolda.coloredsudoku.util.AppPreferences
-import se.zolda.coloredsudoku.util.getColorForValue
-import se.zolda.coloredsudoku.util.show
+import se.zolda.coloredsudoku.util.*
 import kotlin.random.Random
 
 @AndroidEntryPoint
@@ -70,7 +67,7 @@ class StartPageFragment : Fragment() {
         }
         binding.currentLevelTitle.text =
             String.format(getString(R.string.current_level, AppPreferences.currentLevel))
-        getColorForValue(Random.nextInt(1, 9))?.let { color ->
+        getRandomColor()?.let { color ->
             binding.currentLevelTitle.setTextColor(
                 ContextCompat.getColor(requireContext(), color)
             )

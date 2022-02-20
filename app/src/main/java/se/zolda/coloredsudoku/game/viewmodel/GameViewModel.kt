@@ -10,12 +10,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import se.zolda.coloredsudoku.R
+import se.zolda.coloredsudoku.data.LevelScoreDao
 import se.zolda.coloredsudoku.data.SudokuDao
+import se.zolda.coloredsudoku.data.model.*
 import se.zolda.coloredsudoku.game.ColorEnum
-import se.zolda.coloredsudoku.data.model.ColorCell
-import se.zolda.coloredsudoku.data.model.SudokuBoard
-import se.zolda.coloredsudoku.data.model.SudokuBoardState
-import se.zolda.coloredsudoku.data.model.SudokuCell
 import se.zolda.coloredsudoku.util.AppPreferences
 import se.zolda.coloredsudoku.util.Generator
 import se.zolda.coloredsudoku.util.getColorForValue
@@ -23,12 +21,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GameViewModel @Inject constructor(
-    private val sudokuDao: SudokuDao
+    private val sudokuDao: SudokuDao,
+    private val levelScoreDao: LevelScoreDao
 ) : ViewModel(), SudokuGridListener, ColorGridListener {
     //private var spanCount = AppPreferences.spanCount
     //private val numberOfColRow = GridUtil.getNumberOfColumnsAndRows(spanCount)
-    private val _puzzleSolved = MutableLiveData<Boolean>()
-    val puzzleSolved: LiveData<Boolean> get() = _puzzleSolved
     private val _noteSelected = MutableLiveData(false)
     val noteSelected: LiveData<Boolean> get() = _noteSelected
     private val _board = MutableLiveData<SudokuBoard>()
@@ -125,7 +122,6 @@ class GameViewModel @Inject constructor(
     private suspend fun checkSolution(gameBoard: SudokuBoard) {
         gameBoard.cells.filter { it.value == 0 }.let { list ->
             if (list.isNotEmpty()) {
-                _puzzleSolved.postValue(false)
                 sudokuDao.insert(gameBoard)
                 return
             }
@@ -134,7 +130,6 @@ class GameViewModel @Inject constructor(
             gameBoard.cells.mapIndexed { index, sudokuCell ->
                 val solved = solvedBoard.cells[index]
                 if (solved.value != sudokuCell.value) {
-                    _puzzleSolved.postValue(false)
                     sudokuDao.insert(gameBoard)
                     return
                 }
@@ -143,11 +138,23 @@ class GameViewModel @Inject constructor(
         }
     }
 
+    private suspend fun saveScore(){
+        val score = LevelScore(
+            id = AppPreferences.currentLevel,
+            time = AppPreferences.timer
+        )
+        levelScoreDao.getBoard(AppPreferences.currentLevel)?.let {
+            levelScoreDao.deleteLevel(AppPreferences.currentLevel)
+        }
+        levelScoreDao.insert(score)
+    }
+
     private suspend fun onLevelCompleted(gameBoard: SudokuBoard){
+        saveScore()
         AppPreferences.currentLevel = AppPreferences.currentLevel + 1
+        AppPreferences.timer = 0
         sudokuDao.deleteAll()
         updateBoard(gameBoard)
-        _puzzleSolved.postValue(true)
     }
 
     fun restartLevel() {
