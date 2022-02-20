@@ -42,6 +42,7 @@ object AnimationManager {
         }
 
         override fun onAnimationEnd(animation: Animation?) {
+            animation?.setAnimationListener(null)
             onFinish.invoke()
         }
 
@@ -52,33 +53,28 @@ object AnimationManager {
     }
 
     fun alphaAnimation(view: View, onFinish: () -> Unit){
-        alphaAnimation.setAnimationListener(null)
         alphaAnimation.setAnimationListener(animationListener(onFinish))
         view.startAnimation(alphaAnimation)
     }
 
     fun reverseAlphaAnimation(view: View, onFinish: () -> Unit){
-        reverseAlphaAnimation.setAnimationListener(null)
         reverseAlphaAnimation.setAnimationListener(animationListener(onFinish))
         view.startAnimation(reverseAlphaAnimation)
     }
 
     fun reverseHalfAlphaAnimation(view: View, onFinish: () -> Unit, duration: Long = 1000L){
-        reverseHalfAlphaAnimation.setAnimationListener(null)
         reverseHalfAlphaAnimation.setAnimationListener(animationListener(onFinish))
         reverseHalfAlphaAnimation.duration = duration
         view.startAnimation(reverseHalfAlphaAnimation)
     }
 
     fun scaleUp(view: View, onFinish: () -> Unit, duration: Long = 1000L){
-        scaleUp.setAnimationListener(null)
         scaleUp.setAnimationListener(animationListener(onFinish))
         scaleUp.duration = duration
         view.startAnimation(scaleUp)
     }
 
     fun scaleDown(view: View, onFinish: () -> Unit){
-        scaleDown.setAnimationListener(null)
         scaleDown.setAnimationListener(animationListener(onFinish))
         view.startAnimation(scaleDown)
     }

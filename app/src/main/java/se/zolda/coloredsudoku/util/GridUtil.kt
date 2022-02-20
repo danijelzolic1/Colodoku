@@ -19,15 +19,6 @@ object GridUtil {
         }
     }
 
-    fun getNumberOfColumnsAndRows(spanCount: Int): Pair<Int, Int>{
-        return when(spanCount){
-            4 ->  Pair(2, 2)
-            6 -> Pair(3, 2)
-            8 -> Pair(4, 2)
-            else -> Pair(3, 3)
-        }
-    }
-
     fun getBoxFor(index: Int, rowsPerBox: Int, columnsPerBox: Int): Int{
         val nChunkIndex: Int = index / columnsPerBox
         val row: Int = nChunkIndex / (rowsPerBox * rowsPerBox)

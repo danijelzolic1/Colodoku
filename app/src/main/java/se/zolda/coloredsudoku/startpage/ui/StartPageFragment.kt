@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import se.zolda.coloredsudoku.R
 import se.zolda.coloredsudoku.databinding.FragmentStartPageBinding
-import se.zolda.coloredsudoku.util.*
+import se.zolda.coloredsudoku.util.AnimationManager
+import se.zolda.coloredsudoku.util.AppPreferences
+import se.zolda.coloredsudoku.util.getColorForValue
+import se.zolda.coloredsudoku.util.show
 import kotlin.random.Random
 
 @AndroidEntryPoint
