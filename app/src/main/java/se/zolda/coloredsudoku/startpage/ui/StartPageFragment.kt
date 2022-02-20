@@ -59,11 +59,16 @@ class StartPageFragment : Fragment() {
     }
 
     private fun setupViews() {
+        enableButtons(true)
         binding.playButton.setOnClickListener {
-            binding.playButton.isEnabled = false
+            enableButtons(false)
             AnimationManager.reverseAlphaAnimation(binding.mainLayout) {
                 findNavController().navigate(R.id.action_startPageFragment_to_gameFragment)
             }
+        }
+        binding.levelsButton.setOnClickListener {
+            enableButtons(false)
+            findNavController().navigate(R.id.action_startPageFragment_to_levelsFragment)
         }
         binding.currentLevelTitle.text =
             String.format(getString(R.string.current_level, AppPreferences.currentLevel))
@@ -72,5 +77,10 @@ class StartPageFragment : Fragment() {
                 ContextCompat.getColor(requireContext(), color)
             )
         }
+    }
+
+    private fun enableButtons(enable: Boolean){
+        binding.playButton.isEnabled = enable
+        binding.levelsButton.isEnabled = enable
     }
 }

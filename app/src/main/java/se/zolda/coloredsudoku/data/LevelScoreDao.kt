@@ -8,6 +8,10 @@ import se.zolda.coloredsudoku.data.model.LevelScore
 
 @Dao
 interface LevelScoreDao {
+
+    @Query("SELECT * FROM level_score")
+    suspend fun getAll(): List<LevelScore>?
+
     @Query("SELECT * FROM level_score WHERE id == :level")
     suspend fun getBoard(level: Int): LevelScore?
 

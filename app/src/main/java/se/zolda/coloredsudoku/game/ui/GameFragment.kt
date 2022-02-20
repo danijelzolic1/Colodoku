@@ -60,7 +60,6 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
     override fun onPause() {
         super.onPause()
         binding.clock.stop()
-        if(gameState == SudokuBoardState.PLAYING) AppPreferences.timer = SystemClock.elapsedRealtime() - binding.clock.base
     }
 
     private fun setupViews() {
@@ -97,6 +96,10 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
                 firstUpdate = true
                 viewModel.newGame()
             }
+        }
+
+        binding.clock.setOnChronometerTickListener {
+            viewModel.updateTime(it.base)
         }
     }
 

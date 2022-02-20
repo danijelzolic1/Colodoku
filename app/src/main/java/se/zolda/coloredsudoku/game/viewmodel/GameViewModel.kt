@@ -1,5 +1,7 @@
 package se.zolda.coloredsudoku.game.viewmodel
 
+import android.os.SystemClock
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,9 +16,7 @@ import se.zolda.coloredsudoku.data.LevelScoreDao
 import se.zolda.coloredsudoku.data.SudokuDao
 import se.zolda.coloredsudoku.data.model.*
 import se.zolda.coloredsudoku.game.ColorEnum
-import se.zolda.coloredsudoku.util.AppPreferences
-import se.zolda.coloredsudoku.util.Generator
-import se.zolda.coloredsudoku.util.getColorForValue
+import se.zolda.coloredsudoku.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -139,9 +139,11 @@ class GameViewModel @Inject constructor(
     }
 
     private suspend fun saveScore(){
+        val level = AppPreferences.currentLevel
+        val time = AppPreferences.timer
         val score = LevelScore(
-            id = AppPreferences.currentLevel,
-            time = AppPreferences.timer
+            id = level,
+            time = time
         )
         levelScoreDao.getBoard(AppPreferences.currentLevel)?.let {
             levelScoreDao.deleteLevel(AppPreferences.currentLevel)
@@ -155,6 +157,13 @@ class GameViewModel @Inject constructor(
         AppPreferences.timer = 0
         sudokuDao.deleteAll()
         updateBoard(gameBoard)
+    }
+
+    fun updateTime(time: Long){
+        viewModelScope.launch(Dispatchers.IO){
+            Log.d("WTFWTF", "Update timer ${(SystemClock.elapsedRealtime() - time).formatMillisHHmmss()}")
+            AppPreferences.timer = SystemClock.elapsedRealtime() - time
+        }
     }
 
     fun restartLevel() {

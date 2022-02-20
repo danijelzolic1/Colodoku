@@ -15,6 +15,13 @@
             android:id="@+id/action_startPageFragment_to_gameFragment"
             app:destination="@id/gameFragment"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_startPageFragment_to_levelsFragment"
+            app:destination="@id/levelsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -27,4 +34,8 @@
             app:popUpTo="@id/startPageFragment"
             />
     </fragment>
+    <fragment
+        android:id="@+id/levelsFragment"
+        android:name="se.zolda.coloredsudoku.levels.ui.LevelsFragment"
+        android:label="LevelsFragment" />
 </navigation>
