@@ -2,7 +2,7 @@
 <resources>
     <color name="background">#ffffffff</color>
     <color name="cell_background">#ffd2d2d2</color>
-    <color name="grid_stroke">#801A1C20</color>
+    <color name="grid_stroke">#ff5011052C</color>
     <color name="box_stroke">#ffe6e6e6</color>
 
     <color name="primary_text_color">#ff333333</color>
