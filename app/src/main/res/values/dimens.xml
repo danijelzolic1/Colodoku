@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="horizontal_mini">4dp</dimen>
+    <dimen name="vertical_mini">4dp</dimen>
+    <dimen name="horizontal_default">16dp</dimen>
+    <dimen name="vertical_default">16dp</dimen>
+    <dimen name="horizontal_small">8dp</dimen>
+    <dimen name="vertical_small">8dp</dimen>
+    <dimen name="horizontal_large">24dp</dimen>
+    <dimen name="vertical_large">24dp</dimen>
+    <dimen name="horizontal_xlarge">32dp</dimen>
+    <dimen name="vertical_xlarge">32dp</dimen>
+
+    <dimen name="padding_mini">4dp</dimen>
+    <dimen name="padding_default">16dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+
+    <dimen name="game_bottom_buttons_padding">32dp</dimen>
+    <dimen name="dialog_buttons_padding_vertical">8dp</dimen>
+    <dimen name="dialog_buttons_padding_horizontal">16dp</dimen>
+
+    <dimen name="cell_selected_stroke">1dp</dimen>
+    <dimen name="cell_padding">6dp</dimen>
+    <dimen name="cell_background_padding">2dp</dimen>
+    <dimen name="cell_grid_padding">4dp</dimen>
+
+    <dimen name="selected_cell_background_radius">6dp</dimen>
+</resources>

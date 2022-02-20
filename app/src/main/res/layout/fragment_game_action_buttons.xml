@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/vertical_default">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/note_button"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@drawable/game_notes_button_bg"
+            android:padding="@dimen/game_bottom_buttons_padding"
+            android:tint="@color/notes"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_edit" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/restart_button"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@drawable/game_restart_button_bg"
+            android:padding="@dimen/game_bottom_buttons_padding"
+            android:tint="@color/restart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toStartOf="@id/note_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_restart" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/help_button"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@drawable/game_save_button_bg"
+            android:padding="@dimen/game_bottom_buttons_padding"
+            android:tint="@color/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/note_button"
+            app:srcCompat="@drawable/ic_bulb" />
+
+        <TextView
+            android:id="@+id/help_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="@android:color/white"
+            android:background="@drawable/circle"
+            app:layout_constraintDimensionRatio="1:1"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@id/help_button"
+            app:layout_constraintStart_toStartOf="@id/help_button"
+            app:layout_constraintEnd_toEndOf="@id/help_button"
+            style="@style/BodySmallTextStyle"
+            android:layout_marginTop="@dimen/vertical_mini"
+            android:layout_marginStart="@dimen/horizontal_large"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

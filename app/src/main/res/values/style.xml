@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_bg</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+    </style>
+
+    <style name="DisplayTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">34sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="HeadingLargeTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="HeadingMediumTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="HeadingSmallTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="SmallLableTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BodyLargeTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="BodyDefaultTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="BodySmallTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+</resources>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Colored Sudoku</string>
+    <string name="start_title">COLORED\nSUDOKU</string>
+    <string name="play">Play</string>
+    <string name="levels">Levels</string>
+    <string name="restart_level_dialog_title">Restart level</string>
+    <string name="restart_level_dialog_desc">Are you sure about restarting this level?\nThis will remove all your moves until now and can\'t be undone!</string>
+    <string name="restart_level_dialog_cancel">Keep trying</string>
+    <string name="restart_level_dialog_restart">Yes, restart</string>
+    <string name="current_level">LEVEL %d</string>
+    <string name="level_complete_info_easy_1">Don\'t get too excited though, you are still on the lower levels.\nLets see if you can finish the next one.</string>
+    <string name="level_complete_info_easy_2">These levels are easy.\nLets see if you can finish the next one.</string>
+    <string name="level_complete_info_easy_3">If you ask me, I think you took too long for such a easy level.\nLets see if you can complete the next one faster.</string>
+    <string name="level_complete_title_1">Well done!</string>
+    <string name="level_complete_title_2">Nice work!</string>
+    <string name="level_complete_title_3">You did it!</string>
+    <string name="level_complete_title_4">Who would have thought?</string>
+</resources>

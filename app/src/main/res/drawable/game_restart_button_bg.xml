@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/restart">
+    <item >
+        <shape android:shape="rectangle">
+            <solid android:color="@color/background" />
+            <corners android:radius="100dp" />
+        </shape>
+    </item>
+
+    <item >
+        <shape android:shape="rectangle">
+            <stroke android:width="1dp" android:color="@color/restart"/>
+            <corners android:radius="100dp" />
+        </shape>
+    </item>
+</ripple>

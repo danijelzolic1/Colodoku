@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/restart_level_dialog_title"
+            style="@style/HeadingMediumTextStyle"
+            android:textColor="@color/restart_dialog_icon"
+            android:background="@drawable/curve_bg"
+            android:backgroundTint="@color/restart"
+            android:gravity="center_horizontal"
+            android:paddingVertical="@dimen/vertical_large"
+            />
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            android:layout_marginTop="@dimen/vertical_large"
+            android:text="@string/restart_level_dialog_desc"
+            style="@style/BodyDefaultTextStyle"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/horizontal_large"
+            android:textColor="@color/dialog_desc_color"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/desc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/restart"
+            android:background="@drawable/round_cancel_button_bg"
+            android:paddingVertical="@dimen/dialog_buttons_padding_vertical"
+            android:paddingHorizontal="@dimen/dialog_buttons_padding_horizontal"
+            android:layout_marginVertical="@dimen/vertical_large"
+            android:text="@string/restart_level_dialog_cancel"
+            android:textColor="@color/cancel"
+            style="@style/BodyDefaultTextStyle"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/restart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/desc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/game_restart_button_bg"
+            android:paddingVertical="@dimen/dialog_buttons_padding_vertical"
+            android:paddingHorizontal="@dimen/dialog_buttons_padding_horizontal"
+            android:layout_marginVertical="@dimen/vertical_large"
+            android:text="@string/restart_level_dialog_restart"
+            android:textColor="@color/restart"
+            style="@style/BodyDefaultTextStyle"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
