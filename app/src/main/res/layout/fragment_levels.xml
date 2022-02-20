@@ -35,7 +35,6 @@
             tools:itemCount="81"
             tools:listitem="@layout/fragment_levels_list_item"
             android:paddingHorizontal="@dimen/horizontal_large"
-            android:paddingTop="@dimen/vertical_large"
             />
 
         <View

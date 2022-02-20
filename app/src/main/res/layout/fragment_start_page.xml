@@ -140,7 +140,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/current_level"
                 android:gravity="center"
-                style="@style/BodyLargeTextStyle"
+                style="@style/SmallLabelTextStyle"
                 android:textColor="@color/primary_text_color"
                 />
 

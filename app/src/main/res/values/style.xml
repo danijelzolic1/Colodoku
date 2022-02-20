@@ -30,7 +30,7 @@
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="SmallLableTextStyle" parent="@android:style/TextAppearance">
+    <style name="SmallLabelTextStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/primary_text_color</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>

@@ -25,6 +25,7 @@ class LevelViewHolder(
             }
             else -> {
                 getRandomColor()?.let { color ->
+                    binding.cell.setCellDrawable(R.drawable.level_item_bg)
                     binding.cell.background.setDrawableTint(
                         binding.cell.context,
                         color

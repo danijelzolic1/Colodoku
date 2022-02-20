@@ -44,4 +44,5 @@
 
     <color name="level_gradient">#ffffffff</color>
     <color name="level_locked">#ff444444</color>
+    <color name="level_solid">#90ffffff</color>
 </resources>

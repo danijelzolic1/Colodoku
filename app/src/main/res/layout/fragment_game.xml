@@ -60,7 +60,7 @@
                     android:layout_gravity="center"
                     android:textColor="@color/primary_text_color"
                     android:padding="@dimen/padding_small"
-                    style="@style/SmallLableTextStyle"
+                    style="@style/SmallLabelTextStyle"
                     />
 
             </androidx.appcompat.widget.Toolbar>
