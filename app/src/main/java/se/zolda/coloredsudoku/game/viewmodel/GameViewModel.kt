@@ -53,7 +53,7 @@ class GameViewModel @Inject constructor(
         }
     }
 
-    fun newGame(){
+    fun nextLevel(){
         viewModelScope.launch(Dispatchers.IO){
             createNewGame()
         }
@@ -143,7 +143,8 @@ class GameViewModel @Inject constructor(
         val time = AppPreferences.timer
         val score = LevelScore(
             id = level,
-            time = time
+            time = time,
+            locked = false
         )
         levelScoreDao.getBoard(AppPreferences.currentLevel)?.let {
             levelScoreDao.deleteLevel(AppPreferences.currentLevel)

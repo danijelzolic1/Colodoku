@@ -41,4 +41,7 @@
     <color name="cancel">#ff7F7C82</color>
     <color name="cancel_light">#107F7C82</color>
     <color name="dialog_desc_color">#ff444444</color>
+
+    <color name="level_gradient">#ffffffff</color>
+    <color name="level_locked">#ff444444</color>
 </resources>

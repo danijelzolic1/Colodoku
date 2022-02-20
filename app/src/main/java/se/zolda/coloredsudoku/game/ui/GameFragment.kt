@@ -94,7 +94,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
                 binding.mainLayout.hide()
                 binding.mainLayout.alpha = 1.0f
                 firstUpdate = true
-                viewModel.newGame()
+                viewModel.nextLevel()
             }
         }
 
