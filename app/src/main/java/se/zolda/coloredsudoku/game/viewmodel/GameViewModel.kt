@@ -161,7 +161,6 @@ class GameViewModel @Inject constructor(
 
     fun updateTime(time: Long){
         viewModelScope.launch(Dispatchers.IO){
-            Log.d("WTFWTF", "Update timer ${(SystemClock.elapsedRealtime() - time).formatMillisHHmmss()}")
             AppPreferences.timer = SystemClock.elapsedRealtime() - time
         }
     }
