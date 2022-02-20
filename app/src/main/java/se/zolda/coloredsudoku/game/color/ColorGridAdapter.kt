@@ -3,7 +3,7 @@ package se.zolda.coloredsudoku.game.color
 import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import se.zolda.coloredsudoku.game.model.ColorCell
+import se.zolda.coloredsudoku.data.model.ColorCell
 import se.zolda.coloredsudoku.game.viewmodel.ColorGridListener
 
 class ColorGridAdapter(

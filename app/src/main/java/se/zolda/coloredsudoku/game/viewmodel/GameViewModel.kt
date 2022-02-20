@@ -12,13 +12,12 @@ import kotlinx.coroutines.withContext
 import se.zolda.coloredsudoku.R
 import se.zolda.coloredsudoku.data.SudokuDao
 import se.zolda.coloredsudoku.game.ColorEnum
-import se.zolda.coloredsudoku.game.model.ColorCell
-import se.zolda.coloredsudoku.game.model.SudokuBoard
-import se.zolda.coloredsudoku.game.model.SudokuBoardState
-import se.zolda.coloredsudoku.game.model.SudokuCell
+import se.zolda.coloredsudoku.data.model.ColorCell
+import se.zolda.coloredsudoku.data.model.SudokuBoard
+import se.zolda.coloredsudoku.data.model.SudokuBoardState
+import se.zolda.coloredsudoku.data.model.SudokuCell
 import se.zolda.coloredsudoku.util.AppPreferences
 import se.zolda.coloredsudoku.util.Generator
-import se.zolda.coloredsudoku.util.GridUtil
 import se.zolda.coloredsudoku.util.getColorForValue
 import javax.inject.Inject
 

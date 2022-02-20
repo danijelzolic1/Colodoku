@@ -1,12 +1,11 @@
 package se.zolda.coloredsudoku.game.ui
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import se.zolda.coloredsudoku.game.model.SudokuBoard
-import se.zolda.coloredsudoku.game.model.SudokuCell
+import se.zolda.coloredsudoku.data.model.SudokuBoard
+import se.zolda.coloredsudoku.data.model.SudokuCell
 import se.zolda.coloredsudoku.game.viewmodel.SudokuGridListener
 
 class GameGridAdapter(

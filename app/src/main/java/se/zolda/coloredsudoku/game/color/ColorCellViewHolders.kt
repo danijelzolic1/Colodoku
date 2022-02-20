@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import se.zolda.coloredsudoku.databinding.FragmentGameColorCellItemBinding
-import se.zolda.coloredsudoku.game.model.ColorCell
+import se.zolda.coloredsudoku.data.model.ColorCell
 import se.zolda.coloredsudoku.game.viewmodel.ColorGridListener
 import se.zolda.coloredsudoku.util.hide
 import se.zolda.coloredsudoku.util.setDrawableTint

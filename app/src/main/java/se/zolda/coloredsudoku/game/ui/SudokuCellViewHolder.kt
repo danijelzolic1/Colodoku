@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import se.zolda.coloredsudoku.R
 import se.zolda.coloredsudoku.databinding.FragmentGameCellItemBinding
 import se.zolda.coloredsudoku.databinding.FragmentGameCellNoteItemBinding
-import se.zolda.coloredsudoku.game.model.SudokuCell
+import se.zolda.coloredsudoku.data.model.SudokuCell
 import se.zolda.coloredsudoku.game.viewmodel.SudokuGridListener
 import se.zolda.coloredsudoku.util.*
 

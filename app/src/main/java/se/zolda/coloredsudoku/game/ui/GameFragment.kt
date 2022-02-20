@@ -18,7 +18,7 @@ import nl.dionsegijn.konfetti.core.models.Size
 import se.zolda.coloredsudoku.R
 import se.zolda.coloredsudoku.databinding.FragmentGameBinding
 import se.zolda.coloredsudoku.game.color.ColorGridAdapter
-import se.zolda.coloredsudoku.game.model.SudokuBoardState
+import se.zolda.coloredsudoku.data.model.SudokuBoardState
 import se.zolda.coloredsudoku.game.ui.dialog.RestartCurrentLevelDialog
 import se.zolda.coloredsudoku.game.ui.dialog.RestartCurrentLevelListener
 import se.zolda.coloredsudoku.game.viewmodel.GameViewModel
@@ -126,12 +126,20 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
     private fun setupViewModel() {
         viewModel.board.observe(viewLifecycleOwner) {
             gameState = it.sudokuBoardState
-            adapter.update(it)
-            colorAdapter.update(it.colors)
-            if (firstUpdate) {
-                firstUpdate = false
-                AnimationManager.alphaAnimation(binding.mainLayout) {}
-                binding.mainLayout.show()
+            when(gameState){
+                SudokuBoardState.SOLVED -> {
+                    binding.clock.stop()
+                }
+                else -> {
+                    adapter.update(it)
+                    colorAdapter.update(it.colors)
+                    if (firstUpdate) {
+                        startClock()
+                        firstUpdate = false
+                        AnimationManager.alphaAnimation(binding.mainLayout) {}
+                        binding.mainLayout.show()
+                    }
+                }
             }
         }
 

@@ -2,7 +2,7 @@ package se.zolda.coloredsudoku.data
 
 import android.content.Context
 import androidx.room.*
-import se.zolda.coloredsudoku.game.model.SudokuBoard
+import se.zolda.coloredsudoku.data.model.SudokuBoard
 
 @Database(entities = [SudokuBoard::class], version = 1)
 @TypeConverters(RoomTypeConverter::class)

@@ -1,4 +1,4 @@
-package se.zolda.coloredsudoku.game.model
+package se.zolda.coloredsudoku.data.model
 
 import androidx.annotation.ColorRes
 import se.zolda.coloredsudoku.R

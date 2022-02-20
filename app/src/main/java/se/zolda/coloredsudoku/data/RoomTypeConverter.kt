@@ -3,8 +3,8 @@ package se.zolda.coloredsudoku.data
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import se.zolda.coloredsudoku.game.model.ColorCell
-import se.zolda.coloredsudoku.game.model.SudokuCell
+import se.zolda.coloredsudoku.data.model.ColorCell
+import se.zolda.coloredsudoku.data.model.SudokuCell
 import java.lang.reflect.Type
 import java.util.*
 
