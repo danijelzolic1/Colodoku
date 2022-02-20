@@ -112,7 +112,7 @@ class SudokuCellViewHolder(
                 binding.cell.background.setDrawableTintColor(
                     item.color!!.getLighterColor(
                         binding.cell.context,
-                        0.7f
+                        0.6f
                     )
                 )
             }

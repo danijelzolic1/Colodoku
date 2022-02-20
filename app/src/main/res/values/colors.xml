@@ -13,14 +13,14 @@
     <color name="cell_stroke">#ff6a8cc8</color>
 
     <color name="sudoku_red">#ffc63953</color>
-    <color name="sudoku_teal">#ff79B4B7</color>
+    <color name="sudoku_teal">#ff54BAB9</color>
     <color name="sudoku_green">#ff7C9473</color>
     <color name="sudoku_blue">#ff3b8dc4</color>
     <color name="sudoku_purple">#ff867AE9</color>
     <color name="sudoku_orange">#ffFF8A5C</color>
     <color name="sudoku_yellow">#ffffd966</color>
-    <color name="sudoku_pink">#ffff0080</color>
-    <color name="sudoku_beige">#ff94866b</color>
+    <color name="sudoku_pink">#ffE04DB0</color>
+    <color name="sudoku_beige">#ffC0A080</color>
     <color name="sudoku_white">#ffffffff</color>
     <color name="sudoku_empty">#ffD6E0F0</color>
     <color name="sudoku_erase">#ff191919</color>
