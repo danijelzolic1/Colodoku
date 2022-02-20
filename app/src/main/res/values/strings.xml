@@ -15,4 +15,8 @@
     <string name="level_complete_title_2">Nice work!</string>
     <string name="level_complete_title_3">You did it!</string>
     <string name="level_complete_title_4">Who would have thought?</string>
+
+    <string name="ad_mob_app_id" translatable="false">ca-app-pub-9555368099902044~1381089186</string>
+    <string name="ad_mob_interstitial_test" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="ad_mob_rewarded_test" translatable="false">ca-app-pub-3940256099942544/5224354917</string>
 </resources>

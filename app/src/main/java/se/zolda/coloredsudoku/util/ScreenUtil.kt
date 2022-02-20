@@ -26,3 +26,11 @@ val Number.px2dp: Float
 
 val Number.dp2px: Int
     get() = (this.toFloat() * displayMetrics.density).roundToInt()
+
+fun shouldShowInterstitialAd(): Boolean{
+    return true
+    return when(val level = AppPreferences.currentLevel){
+        0 -> false
+        else -> level % 4 == 0
+    }
+}

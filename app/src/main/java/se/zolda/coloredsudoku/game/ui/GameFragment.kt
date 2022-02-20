@@ -2,6 +2,7 @@ package se.zolda.coloredsudoku.game.ui
 
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +11,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import dagger.hilt.android.AndroidEntryPoint
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.Position
 import nl.dionsegijn.konfetti.core.emitter.Emitter
 import nl.dionsegijn.konfetti.core.models.Size
+import se.zolda.coloredsudoku.BuildConfig
 import se.zolda.coloredsudoku.R
 import se.zolda.coloredsudoku.databinding.FragmentGameBinding
 import se.zolda.coloredsudoku.game.color.ColorGridAdapter
@@ -36,11 +44,14 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
     private var gameState: SudokuBoardState = SudokuBoardState.SOLVED
     private var firstUpdate = true
 
+    private var mInterstitialAd: InterstitialAd? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentGameBinding.inflate(layoutInflater)
         setupGrid()
         setupViews()
+        loadInterstitialAd()
     }
 
     override fun onCreateView(
@@ -55,6 +66,40 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
     override fun onResume() {
         super.onResume()
         startClock()
+    }
+
+    private fun loadInterstitialAd(){
+        InterstitialAd.load(requireContext(), BuildConfig.INTERSTITIAL_AD_ID,
+            AdRequest.Builder().build(), object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Log.e("GameFragmentAD", adError.message)
+                    mInterstitialAd?.fullScreenContentCallback = null
+                    mInterstitialAd = null
+                }
+
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    Log.d("GameFragmentAD", "Ad was loaded")
+                    mInterstitialAd = interstitialAd
+                    mInterstitialAd?.fullScreenContentCallback = fullScreenContentCallback
+                }
+            })
+    }
+
+    private val fullScreenContentCallback = object: FullScreenContentCallback() {
+        override fun onAdDismissedFullScreenContent() {
+            Log.d("GameFragmentAD", "Ad was dismissed")
+            loadNextLevel()
+        }
+
+        override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+            Log.e("GameFragmentAD", "Ad failed to show: ${adError?.message}")
+            loadNextLevel()
+        }
+
+        override fun onAdShowedFullScreenContent() {
+            Log.d("GameFragmentAD", "Ad showed fullscreen content")
+            loadInterstitialAd()
+        }
     }
 
     override fun onPause() {
@@ -89,25 +134,24 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
         }
 
         binding.levelCompleteButtons.nextButton.setOnClickListener {
-            binding.levelCompleteLayout.hide()
-            AnimationManager.reverseAlphaAnimation(binding.mainLayout){
-                binding.mainLayout.hide()
-                binding.mainLayout.alpha = 1.0f
-                firstUpdate = true
-                viewModel.nextLevel()
-            }
+            if(shouldShowInterstitialAd()){
+                mInterstitialAd?.show(requireActivity())
+            } else loadNextLevel()
         }
 
         binding.clock.setOnChronometerTickListener {
-            viewModel.updateTime(it.base)
+            if(gameState == SudokuBoardState.PLAYING) viewModel.updateTime(it.base)
         }
     }
 
-    private fun enableButtons(enable: Boolean){
-        binding.actionButtons.helpButton.isEnabled = enable
-        binding.actionButtons.noteButton.isEnabled = enable
-        binding.actionButtons.restartButton.isEnabled = enable
-        binding.back.isEnabled = enable
+    private fun loadNextLevel(){
+        binding.levelCompleteLayout.hide()
+        AnimationManager.reverseAlphaAnimation(binding.mainLayout){
+            binding.mainLayout.hide()
+            binding.mainLayout.alpha = 1.0f
+            firstUpdate = true
+            viewModel.nextLevel()
+        }
     }
 
     private fun setupGrid() {
@@ -160,6 +204,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
 
     private fun onPuzzleSolved(){
         binding.clock.stop()
+        AppPreferences.timer = 0
         binding.confetti.start(
             Party(
                 speed = 0f,
@@ -172,10 +217,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
                 position = Position.Relative(0.5, 0.3)
             )
         )
-        AnimationManager.reverseHalfAlphaAnimation(binding.mainLayout, {
-            binding.mainLayout.alpha = 0.5f
-        })
-        AnimationManager.scaleUp(binding.levelCompleteLayout, {})
+        AnimationManager.scaleUp(binding.levelCompleteCv, {})
         binding.levelCompleteLayout.show()
     }
 

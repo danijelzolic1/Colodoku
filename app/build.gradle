@@ -34,6 +34,21 @@ android {
     dataBinding {
         enabled true
     }
+
+    flavorDimensions "main"
+    productFlavors {
+        dev{
+            buildConfigField 'String', "INTERSTITIAL_AD_ID", '"ca-app-pub-3940256099942544/1033173712"'
+            buildConfigField 'String', "REWARD_AD_ID", '"ca-app-pub-3940256099942544/5224354917"'
+            dimension "main"
+        }
+
+        prod{
+            buildConfigField 'String', "INTERSTITIAL_AD_ID", '"ca-app-pub-9555368099902044~1381089186"'
+            buildConfigField 'String', "REWARD_AD_ID", '"ca-app-pub-9555368099902044~1381089186"'
+            dimension "main"
+        }
+    }
 }
 
 dependencies {
@@ -67,6 +82,7 @@ dependencies {
     implementation "androidx.room:room-ktx:2.4.1"
 
     implementation 'com.google.code.gson:gson:2.8.9'
-
     implementation 'nl.dionsegijn:konfetti-xml:2.0.1'
+
+    implementation 'com.google.android.gms:play-services-ads:20.5.0'
 }
