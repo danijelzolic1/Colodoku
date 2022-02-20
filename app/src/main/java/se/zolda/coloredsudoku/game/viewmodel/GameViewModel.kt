@@ -18,6 +18,7 @@ import se.zolda.coloredsudoku.game.model.SudokuBoardState
 import se.zolda.coloredsudoku.game.model.SudokuCell
 import se.zolda.coloredsudoku.util.AppPreferences
 import se.zolda.coloredsudoku.util.Generator
+import se.zolda.coloredsudoku.util.GridUtil
 import se.zolda.coloredsudoku.util.getColorForValue
 import javax.inject.Inject
 
@@ -64,7 +65,7 @@ class GameViewModel @Inject constructor(
 
     private suspend fun createNewGame() {
         val span = AppPreferences.spanCount
-        val generatedBoards = Generator(span, 1).build()
+        val generatedBoards = Generator(span).build()
         val solvedBoard = generatedBoards.first
         val gameBoard = generatedBoards.second
         val items = mutableListOf<SudokuCell>()

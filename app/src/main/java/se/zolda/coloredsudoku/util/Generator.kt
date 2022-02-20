@@ -6,8 +6,9 @@ import kotlin.math.sqrt
 class InvalidSizeError : Exception("Requested size is invalid (4-n)")
 class InvalidLevelError : Exception("Level isnt in range 0-64")
 
-class Generator(private val size: Int, private val level: Int) {
+class Generator(private val size: Int) {
     private var sqrSize: Int
+    private val level: Int = GridUtil.getNumberOfEmptyCells()
     private val board: Array<Array<Int>>
     private val solvedBoard: Array<Array<Int>>
 
