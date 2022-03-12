@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import se.zolda.coloredsudoku.data.model.SudokuBoard
 import se.zolda.coloredsudoku.data.model.SudokuCell
 import se.zolda.coloredsudoku.game.viewmodel.SudokuGridListener
+import se.zolda.coloredsudoku.util.isDarkThemeOn
 
 class GameGridAdapter(
-    private val listener: SudokuGridListener
+    private val listener: SudokuGridListener,
+    private val isDarkTheme: Boolean
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     private val items = mutableListOf<SudokuCell>()
 
@@ -29,7 +31,7 @@ class GameGridAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return SudokuCellViewHolder.from(parent, listener)
+        return SudokuCellViewHolder.from(parent, listener, isDarkTheme)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

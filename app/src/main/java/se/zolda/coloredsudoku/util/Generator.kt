@@ -8,7 +8,7 @@ class InvalidLevelError : Exception("Level isnt in range 0-64")
 
 class Generator(private val size: Int) {
     private var sqrSize: Int
-    private val level: Int = 1//GridUtil.getNumberOfEmptyCells()
+    private val level: Int = GridUtil.getNumberOfEmptyCells()
     private val board: Array<Array<Int>>
     private val solvedBoard: Array<Array<Int>>
 

@@ -12,6 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import se.zolda.coloredsudoku.databinding.FragmentLevelsBinding
 import se.zolda.coloredsudoku.levels.viewmodel.LevelsViewModel
 import se.zolda.coloredsudoku.util.AnimationManager
+import se.zolda.coloredsudoku.util.hide
+import se.zolda.coloredsudoku.util.show
 
 @AndroidEntryPoint
 class LevelsFragment: Fragment() {
@@ -58,7 +60,17 @@ class LevelsFragment: Fragment() {
 
     private fun setupViewModel() {
         viewModel.levels.observe(viewLifecycleOwner){
-            adapter.update(it)
+            when(it.isEmpty()){
+                true -> {
+                    binding.grid.hide()
+                    binding.noLevelsComplete.show()
+                }
+                else -> {
+                    adapter.update(it)
+                    binding.grid.show()
+                    binding.noLevelsComplete.hide()
+                }
+            }
         }
     }
 }

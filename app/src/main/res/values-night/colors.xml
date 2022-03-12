@@ -1,4 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background">#201E20</color>
+    <color name="background">#ff1E212B</color>
+    <color name="background_dim">#901E212B</color>
+    <color name="grid_stroke">#e1e3ea</color>
+    <color name="box_stroke">#50ffffff</color>
+    <color name="primary_text_color">#F7F7FF</color>
+    <color name="sub_text_color">#ffEDE7D9</color>
+    <color name="ripple">#ff042A2B</color>
+
+    <color name="cell_stroke">#ffedf6f9</color>
+
+    <color name="sudoku_red">#ffc63953</color>
+    <color name="sudoku_teal">#ff54BAB9</color>
+    <color name="sudoku_green">#ff7C9473</color>
+    <color name="sudoku_blue">#ff3b8dc4</color>
+    <color name="sudoku_purple">#ff867AE9</color>
+    <color name="sudoku_orange">#ffFF8A5C</color>
+    <color name="sudoku_yellow">#ffffd966</color>
+    <color name="sudoku_pink">#ffE04DB0</color>
+    <color name="sudoku_beige">#ffC0A080</color>
+    <color name="sudoku_white">#ffffffff</color>
+    <color name="sudoku_empty">#343a4b</color>
+    <color name="sudoku_erase">#ffFAFAFF</color>
+    <color name="sudoku_erase_icon">#ff1E212B</color>
+
+    <color name="play_light">#107C9473</color>
+    <color name="play">#ff7C9473</color>
+    <color name="levels_light">#104F98CA</color>
+    <color name="levels">#ff4F98CA</color>
+    <color name="notes_light">#104F98CA</color>
+    <color name="notes">#ff4F98CA</color>
+    <color name="restart_light">#10c63953</color>
+    <color name="restart">#ffc63953</color>
+    <color name="save_light">#107C9473</color>
+    <color name="save">#ff7C9473</color>
+
+    <color name="restart_dialog_icon">#ffffffff</color>
+    <color name="cancel">#ff7F7C82</color>
+    <color name="cancel_light">#107F7C82</color>
+    <color name="dialog_desc_color">#ffEDE7D9</color>
+
+    <color name="level_gradient">#ff1E212B</color>
+    <color name="level_locked">#ff7881a1</color>
+    <color name="level_solid">#ff1E212B</color>
 </resources>

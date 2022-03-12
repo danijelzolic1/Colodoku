@@ -2,6 +2,7 @@ package se.zolda.coloredsudoku.levels.ui
 
 import android.content.Context
 import android.graphics.Rect
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,11 +26,14 @@ class LevelItemDecoration(
         val position = params.viewAdapterPosition
         val column = (view.layoutParams as GridLayoutManager.LayoutParams).spanIndex
         val spanCount = (parent.layoutManager as GridLayoutManager).spanCount
+        val numOfRows = (parent.adapter?.itemCount ?: 0).div(spanCount)
         val row = (position - column) / spanCount
-
         if (position < state.itemCount) { // left, top, right, bottom
-            outRect[0, if(row == 0) (displayHeight*0.15).toInt() else 0, 0] =
-                if(row == ceil(Constants.MAX_LEVEL.toDouble()/spanCount - 1).toInt()) (displayHeight*0.15).toInt() else 0
+            outRect[
+                    0,
+                    if (row == 0) (displayHeight * 0.15).toInt() else 0,
+                    0
+            ] = if (row == numOfRows) (displayHeight * 0.15).toInt() else 0
         }
     }
 }

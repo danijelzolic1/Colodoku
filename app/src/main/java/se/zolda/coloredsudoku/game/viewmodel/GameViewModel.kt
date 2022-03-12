@@ -18,6 +18,7 @@ import se.zolda.coloredsudoku.data.model.*
 import se.zolda.coloredsudoku.game.ColorEnum
 import se.zolda.coloredsudoku.util.*
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class GameViewModel @Inject constructor(
@@ -83,7 +84,9 @@ class GameViewModel @Inject constructor(
                 )
                 solvedItems.add(
                     SudokuCell(
+                        id = i * span + j,
                         value = solvedValue,
+                        color = getColorForValue(value)
                     )
                 )
             }
@@ -114,6 +117,7 @@ class GameViewModel @Inject constructor(
             id = 0,
             cells = solvedItems
         )
+        sudokuDao.deleteAll()
         sudokuDao.insert(sudokuBoard)
         sudokuDao.insert(solvedSudokuBoard)
         updateBoard(sudokuBoard)
@@ -122,7 +126,6 @@ class GameViewModel @Inject constructor(
     private suspend fun checkSolution(gameBoard: SudokuBoard) {
         gameBoard.cells.filter { it.value == 0 }.let { list ->
             if (list.isNotEmpty()) {
-                sudokuDao.insert(gameBoard)
                 return
             }
         }
@@ -130,7 +133,6 @@ class GameViewModel @Inject constructor(
             gameBoard.cells.mapIndexed { index, sudokuCell ->
                 val solved = solvedBoard.cells[index]
                 if (solved.value != sudokuCell.value) {
-                    sudokuDao.insert(gameBoard)
                     return
                 }
             }
@@ -191,6 +193,42 @@ class GameViewModel @Inject constructor(
 
     private suspend fun updateBoard(gameBoard: SudokuBoard) = withContext(Dispatchers.Main){
         _board.value = gameBoard
+    }
+
+    fun onHintRewarded(){
+        viewModelScope.launch(Dispatchers.IO){
+            _board.value?.let { gameBoard ->
+                val mutableList = gameBoard.cells.toMutableList()
+                gameBoard.cells.find { it.isSelected }?.let { cell ->
+                    val newCell = cell.copy(
+                        isSelected = false
+                    )
+                    mutableList[gameBoard.cells.indexOf(cell)] = newCell
+                }
+                gameBoard.cells.filter { it.canEdit && it.value == 0 }.let { filtered ->
+                    if(filtered.isNotEmpty()){
+                        val randomIndex = Random.nextInt(filtered.size)
+                        val cell = filtered[randomIndex]
+                        val c = gameBoard.cells.find { it.id == cell.id }
+                        val index = gameBoard.cells.indexOf(c)
+                        val solved = sudokuDao.getSolvedBoard()?.cells?.get(index)
+                        solved?.let {
+                            mutableList[index] = cell.copy(
+                                isSelected = true,
+                                value = solved.value,
+                                color = getColorForValue(solved.value),
+                                notes = listOf(),
+                            )
+                            gameBoard.copy(cells = mutableList).let { gb ->
+                                sudokuDao.insert(gb)
+                                updateBoard(gb)
+                                checkSolution(gb)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private var toggleJob: Job? = null
@@ -284,6 +322,7 @@ class GameViewModel @Inject constructor(
                     }
                     mutableList[gameBoard.cells.indexOf(selected)] = newCell
                     gameBoard.copy(cells = mutableList).let { copied ->
+                        sudokuDao.insert(copied)
                         if(checkSolution) checkSolution(copied)
                         updateBoard(copied)
                     }

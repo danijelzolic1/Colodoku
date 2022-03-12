@@ -94,7 +94,8 @@
             android:id="@+id/level_complete_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_alpha_60"
+            android:paddingBottom="@dimen/vertical_default"
+            android:background="@color/background_dim"
             android:clickable="true"
             android:focusable="true"
             android:visibility="gone"
@@ -116,63 +117,59 @@
                 app:layout_constraintGuide_percent="0.8"
                 />
 
-            <androidx.cardview.widget.CardView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/level_complete_cv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/guidelineStart"
-                app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:elevation="8dp"
-                app:cardUseCompatPadding="true"
-                app:cardBackgroundColor="@color/background"
+                app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                android:background="@color/background"
+                android:paddingBottom="@dimen/vertical_default"
+                android:layout_margin="@dimen/padding_mini"
+                android:elevation="4dp"
                 >
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:id="@+id/level_complete_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/level_complete_title_2"
+                    style="@style/HeadingMediumTextStyle"
+                    android:textColor="@color/restart_dialog_icon"
+                    android:background="@drawable/curve_bg"
+                    android:backgroundTint="@color/restart"
+                    android:gravity="center_horizontal"
+                    android:paddingVertical="@dimen/vertical_large"
+                    />
+
+                <TextView
+                    android:id="@+id/level_complete_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/padding_small"
-                    >
+                    app:layout_constraintTop_toBottomOf="@id/level_complete_title"
+                    android:layout_marginTop="@dimen/vertical_large"
+                    android:text="@string/level_complete_info_easy_1"
+                    style="@style/BodyDefaultTextStyle"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/horizontal_large"
+                    android:textColor="@color/dialog_desc_color"
+                    />
 
-                    <TextView
-                        android:id="@+id/level_complete_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/level_complete_title_2"
-                        style="@style/HeadingMediumTextStyle"
-                        android:gravity="center"
-                        app:layout_constraintTop_toTopOf="parent"
-                        />
+                <include
+                    android:id="@+id/level_complete_buttons"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    layout="@layout/level_complete_action_buttons"
+                    app:layout_constraintTop_toBottomOf="@id/level_complete_info"
+                    android:layout_marginTop="@dimen/vertical_default"
+                    />
 
-                    <TextView
-                        android:id="@+id/level_complete_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/level_complete_title"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginTop="@dimen/vertical_default"
-                        style="@style/BodyDefaultTextStyle"
-                        android:text="@string/level_complete_info_easy_1"
-                        android:gravity="center"
-                        android:textColor="@color/sub_text_color"
-                        android:lineSpacingMultiplier="1.1"
-                        />
-
-                    <include
-                        android:id="@+id/level_complete_buttons"
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
-                        layout="@layout/level_complete_action_buttons"
-                        app:layout_constraintTop_toBottomOf="@id/level_complete_info"
-                        android:layout_marginTop="@dimen/vertical_default"
-                        />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

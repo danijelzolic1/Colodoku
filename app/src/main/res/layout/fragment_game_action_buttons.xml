@@ -50,22 +50,5 @@
             app:layout_constraintStart_toEndOf="@id/note_button"
             app:srcCompat="@drawable/ic_bulb" />
 
-        <TextView
-            android:id="@+id/help_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="2"
-            android:textColor="@android:color/white"
-            android:background="@drawable/circle"
-            app:layout_constraintDimensionRatio="1:1"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="@id/help_button"
-            app:layout_constraintStart_toStartOf="@id/help_button"
-            app:layout_constraintEnd_toEndOf="@id/help_button"
-            style="@style/BodySmallTextStyle"
-            android:layout_marginTop="@dimen/vertical_mini"
-            android:layout_marginStart="@dimen/horizontal_large"
-            />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

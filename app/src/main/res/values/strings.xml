@@ -8,15 +8,60 @@
     <string name="restart_level_dialog_cancel">Keep trying</string>
     <string name="restart_level_dialog_restart">Yes, restart</string>
     <string name="current_level">LEVEL %d</string>
+
     <string name="level_complete_info_easy_1">Don\'t get too excited though, you are still on the lower levels.\nLets see if you can finish the next one.</string>
     <string name="level_complete_info_easy_2">These levels are easy.\nLets see if you can finish the next one.</string>
-    <string name="level_complete_info_easy_3">If you ask me, I think you took too long for such a easy level.\nLets see if you can complete the next one faster.</string>
+    <string name="level_complete_info_easy_3">I bet you won\'t complete the next one.</string>
+
+    <string name="level_complete_info_medium_1">You are still far away from the real challenges, but I\'m a little (very little) bit impressed.</string>
+    <string name="level_complete_info_medium_2">If you ask me, I think you took too long for such a easy level.\nLets see if you can complete the next one faster.</string>
+    <string name="level_complete_info_medium_3">Come on…\nI know you can do better than that!</string>
+
+    <string name="level_complete_info_hard_1">Hmm…\nStarting to think that your head might not be so empty after all…</string>
+    <string name="level_complete_info_hard_2">I bet you are cheating…</string>
+    <string name="level_complete_info_hard_3">I once got a numbered Sudoku toilet paper.\nSadly I could not finish it because I could only fill it with 1s and 2s.\nSo I changed it to colors instead…</string>
+
+    <string name="level_complete_info_extreme_1">WOW!\nThat was not easy…</string>
+    <string name="level_complete_info_extreme_2">I have nothing else to say than…\nI\'m impressed!</string>
+    <string name="level_complete_info_extreme_3">Take it easy.\nYou make the rest of us look bad.</string>
+
     <string name="level_complete_title_1">Well done!</string>
     <string name="level_complete_title_2">Nice work!</string>
     <string name="level_complete_title_3">You did it!</string>
     <string name="level_complete_title_4">Who would have thought?</string>
 
+    <string-array name="level_complete_easy">
+        <item>@string/level_complete_info_easy_1</item>
+        <item>@string/level_complete_info_easy_2</item>
+        <item>@string/level_complete_info_easy_3</item>
+    </string-array>
+
+    <string-array name="level_complete_medium">
+        <item>@string/level_complete_info_medium_1</item>
+        <item>@string/level_complete_info_medium_2</item>
+        <item>@string/level_complete_info_medium_3</item>
+    </string-array>
+
+    <string-array name="level_complete_hard">
+        <item>@string/level_complete_info_hard_1</item>
+        <item>@string/level_complete_info_hard_2</item>
+        <item>@string/level_complete_info_hard_3</item>
+    </string-array>
+
+    <string-array name="level_complete_extreme">
+        <item>@string/level_complete_info_extreme_1</item>
+        <item>@string/level_complete_info_extreme_2</item>
+        <item>@string/level_complete_info_extreme_3</item>
+    </string-array>
+
+    <string-array name="level_complete_titles">
+        <item>@string/level_complete_title_1</item>
+        <item>@string/level_complete_title_2</item>
+        <item>@string/level_complete_title_3</item>
+        <item>@string/level_complete_title_4</item>
+    </string-array>
+
+    <string name="no_levels_completed">Currently you don\'t have any completed levels.\nLuckily there is a easy fix to this…</string>
+
     <string name="ad_mob_app_id" translatable="false">ca-app-pub-9555368099902044~1381089186</string>
-    <string name="ad_mob_interstitial_test" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="ad_mob_rewarded_test" translatable="false">ca-app-pub-3940256099942544/5224354917</string>
 </resources>

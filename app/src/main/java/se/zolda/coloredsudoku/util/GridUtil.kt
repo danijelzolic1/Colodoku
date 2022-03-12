@@ -1,5 +1,7 @@
 package se.zolda.coloredsudoku.util
 
+import se.zolda.coloredsudoku.R
+
 object GridUtil {
     fun getColumnGridLineIndexes(spanCount: Int): List<Int>{
         return when(spanCount){
@@ -20,8 +22,7 @@ object GridUtil {
     }
 
     fun getNumberOfEmptyCells(): Int{
-        val level = AppPreferences.currentLevel
-        return when (level) {
+        return when (val level = AppPreferences.currentLevel) {
             in 1..5 -> level
             in 6..10 -> 5
             in 11..15 -> 10

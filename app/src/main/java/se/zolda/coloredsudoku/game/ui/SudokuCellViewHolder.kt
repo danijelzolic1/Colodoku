@@ -14,7 +14,8 @@ import se.zolda.coloredsudoku.util.*
 
 class SudokuCellViewHolder(
     private val binding: FragmentGameCellItemBinding,
-    private val listener: SudokuGridListener
+    private val listener: SudokuGridListener,
+    private val isDarkTheme: Boolean
 ) :
     SudokuCellBaseViewHolder<SudokuCell>(binding.root) {
 
@@ -110,7 +111,7 @@ class SudokuCellViewHolder(
             item.color != null && item.canEdit -> {
                 binding.cell.setCellDrawable(R.drawable.rounded_bg)
                 binding.cell.background.setDrawableTintColor(
-                    item.color!!.getLighterColor(
+                    item.color!!.cellBackgroundLight(
                         binding.cell.context,
                         0.6f
                     )
@@ -126,7 +127,8 @@ class SudokuCellViewHolder(
     companion object {
         fun from(
             parent: ViewGroup,
-            listener: SudokuGridListener
+            listener: SudokuGridListener,
+            isDarkTheme: Boolean
         ): SudokuCellBaseViewHolder<SudokuCell> {
             return SudokuCellViewHolder(
                 FragmentGameCellItemBinding.inflate(
@@ -134,7 +136,8 @@ class SudokuCellViewHolder(
                         parent.context
                     ), parent, false
                 ),
-                listener
+                listener,
+                isDarkTheme
             )
         }
     }

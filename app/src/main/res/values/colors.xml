@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background">#ffffffff</color>
-    <color name="background_alpha_60">#60ffffff</color>
-    <color name="cell_background">#ffd2d2d2</color>
+    <color name="background_dim">#60ffffff</color>
     <color name="grid_stroke">#5011052C</color>
     <color name="box_stroke">#ffe6e6e6</color>
 
     <color name="primary_text_color">#ff333333</color>
     <color name="sub_text_color">#363636</color>
-    <color name="secondary_text_color">#ffa6a6a6</color>
     <color name="ripple">#ffd2d2d2</color>
 
     <color name="cell_stroke">#ff6a8cc8</color>

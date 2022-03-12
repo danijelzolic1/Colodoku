@@ -7,9 +7,9 @@ import androidx.core.graphics.ColorUtils
 import se.zolda.coloredsudoku.R
 import kotlin.random.Random
 
-fun Int.getLighterColor(context: Context, ratio: Float): Int {
+fun Int.cellBackgroundLight(context: Context, ratio: Float): Int {
     val color = ContextCompat.getColor(context, this)
-    return ColorUtils.blendARGB(color, Color.WHITE, ratio)
+    return ColorUtils.blendARGB(color, context.getColor(R.color.background), ratio)
 }
 
 fun getRandomColor(): Int?{

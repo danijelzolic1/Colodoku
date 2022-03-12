@@ -15,8 +15,11 @@ import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.OnUserEarnedRewardListener
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import dagger.hilt.android.AndroidEntryPoint
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.Position
@@ -32,6 +35,7 @@ import se.zolda.coloredsudoku.game.ui.dialog.RestartCurrentLevelListener
 import se.zolda.coloredsudoku.game.viewmodel.GameViewModel
 import se.zolda.coloredsudoku.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.random.Random
 
 
 @AndroidEntryPoint
@@ -45,6 +49,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
     private var firstUpdate = true
 
     private var mInterstitialAd: InterstitialAd? = null
+    private var mRewardedAd: RewardedAd? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +57,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
         setupGrid()
         setupViews()
         loadInterstitialAd()
+        loadRewardedAdd()
     }
 
     override fun onCreateView(
@@ -68,43 +74,75 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
         startClock()
     }
 
+    private fun loadRewardedAdd(){
+        RewardedAd.load(requireContext(), BuildConfig.REWARD_AD_ID, AdRequest.Builder().build(), object : RewardedAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                mRewardedAd?.fullScreenContentCallback = null
+                mRewardedAd = null
+            }
+
+            override fun onAdLoaded(rewardedAd: RewardedAd) {
+                mRewardedAd = rewardedAd
+                mRewardedAd?.fullScreenContentCallback = rewardedFullScreenContentCallback
+            }
+        })
+    }
+
     private fun loadInterstitialAd(){
         InterstitialAd.load(requireContext(), BuildConfig.INTERSTITIAL_AD_ID,
             AdRequest.Builder().build(), object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.e("GameFragmentAD", adError.message)
                     mInterstitialAd?.fullScreenContentCallback = null
                     mInterstitialAd = null
                 }
 
                 override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    Log.d("GameFragmentAD", "Ad was loaded")
                     mInterstitialAd = interstitialAd
-                    mInterstitialAd?.fullScreenContentCallback = fullScreenContentCallback
+                    mInterstitialAd?.fullScreenContentCallback = interstitialFullScreenContentCallback
                 }
             })
     }
 
-    private val fullScreenContentCallback = object: FullScreenContentCallback() {
+    private val rewardedFullScreenContentCallback = object: FullScreenContentCallback() {
         override fun onAdDismissedFullScreenContent() {
-            Log.d("GameFragmentAD", "Ad was dismissed")
+            mRewardedAd = null
+            loadRewardedAdd()
+        }
+
+        override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+        }
+
+        override fun onAdShowedFullScreenContent() {
+        }
+    }
+
+    private val interstitialFullScreenContentCallback = object: FullScreenContentCallback() {
+        override fun onAdDismissedFullScreenContent() {
+            mInterstitialAd = null
+            loadInterstitialAd()
             loadNextLevel()
         }
 
         override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-            Log.e("GameFragmentAD", "Ad failed to show: ${adError?.message}")
             loadNextLevel()
         }
 
         override fun onAdShowedFullScreenContent() {
-            Log.d("GameFragmentAD", "Ad showed fullscreen content")
-            loadInterstitialAd()
         }
     }
 
     override fun onPause() {
         super.onPause()
         binding.clock.stop()
+    }
+
+    private fun showHintRewardAd(){
+        mRewardedAd?.show(
+            requireActivity()
+        ) { _ ->
+            AppPreferences.numberOfHints += 1
+            viewModel.onHintRewarded()
+        }
     }
 
     private fun setupViews() {
@@ -123,7 +161,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
             }
         }
         binding.actionButtons.helpButton.setOnClickListener {
-
+            showHintRewardAd()
         }
 
         binding.levelCompleteButtons.homeButton.setOnClickListener {
@@ -159,7 +197,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
         binding.grid.layoutManager = gridLayoutManager
         binding.grid.setHasFixedSize(true)
         binding.grid.addItemDecoration(GridItemDecoration(requireContext()))
-        adapter = GameGridAdapter(viewModel)
+        adapter = GameGridAdapter(viewModel, context?.isDarkThemeOn() ?: false)
         binding.grid.adapter = adapter
 
         val colorGridLayoutManager = GridLayoutManager(requireContext(), 5)
@@ -217,7 +255,9 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
                 position = Position.Relative(0.5, 0.3)
             )
         )
-        AnimationManager.scaleUp(binding.levelCompleteCv, {})
+        AnimationManager.scaleUp(binding.levelCompleteLayout, {})
+        binding.levelCompleteTitle.text = getRandomLevelCompleteTitle()
+        binding.levelCompleteInfo.text = getRandomLevelCompleteInfo()
         binding.levelCompleteLayout.show()
     }
 
@@ -229,5 +269,39 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
 
     override fun onRestart() {
         viewModel.restartLevel()
+    }
+
+    private fun getRandomLevelCompleteTitle(): String{
+        val array = resources.getStringArray(R.array.level_complete_titles)
+        return array[Random.nextInt(array.size)]
+    }
+
+    private fun getRandomLevelCompleteInfo(): String{
+        return when (AppPreferences.currentLevel) {
+            in 1..20 -> getRandomLevelCompleteEasy()
+            in 21..40 -> getRandomLevelCompleteMedium()
+            in 41..55 -> getRandomLevelCompleteHard()
+            else -> getRandomLevelCompleteExtreme()
+        }
+    }
+
+    private fun getRandomLevelCompleteEasy(): String{
+        val array = resources.getStringArray(R.array.level_complete_easy)
+        return array[Random.nextInt(array.size)]
+    }
+
+    private fun getRandomLevelCompleteMedium(): String{
+        val array = resources.getStringArray(R.array.level_complete_medium)
+        return array[Random.nextInt(array.size)]
+    }
+
+    private fun getRandomLevelCompleteHard(): String{
+        val array = resources.getStringArray(R.array.level_complete_hard)
+        return array[Random.nextInt(array.size)]
+    }
+
+    private fun getRandomLevelCompleteExtreme(): String{
+        val array = resources.getStringArray(R.array.level_complete_extreme)
+        return array[Random.nextInt(array.size)]
     }
 }

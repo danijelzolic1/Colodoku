@@ -1,6 +1,8 @@
 package se.zolda.coloredsudoku.util
 
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.content.res.Resources
 import android.graphics.Rect
 import android.graphics.RectF
@@ -28,9 +30,13 @@ val Number.dp2px: Int
     get() = (this.toFloat() * displayMetrics.density).roundToInt()
 
 fun shouldShowInterstitialAd(): Boolean{
-    return true
     return when(val level = AppPreferences.currentLevel){
         0 -> false
         else -> level % 4 == 0
     }
+}
+
+fun Context.isDarkThemeOn(): Boolean {
+    return resources.configuration.uiMode and
+            Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
 }

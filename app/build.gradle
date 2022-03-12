@@ -44,8 +44,8 @@ android {
         }
 
         prod{
-            buildConfigField 'String', "INTERSTITIAL_AD_ID", '"ca-app-pub-9555368099902044~1381089186"'
-            buildConfigField 'String', "REWARD_AD_ID", '"ca-app-pub-9555368099902044~1381089186"'
+            buildConfigField 'String', "INTERSTITIAL_AD_ID", '"ca-app-pub-9555368099902044/6488835814"'
+            buildConfigField 'String', "REWARD_AD_ID", '"ca-app-pub-9555368099902044/1785505171"'
             dimension "main"
         }
     }

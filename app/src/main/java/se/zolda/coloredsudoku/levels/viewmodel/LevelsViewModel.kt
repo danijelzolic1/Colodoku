@@ -21,13 +21,14 @@ class LevelsViewModel @Inject constructor(
 ): ViewModel(), LevelsListener {
 
     private val _levels = levelScoreDao.all()
-    val levels : MediatorLiveData<List<LevelScore>> = MediatorLiveData<List<LevelScore>>().also {
+    /*val levels : MediatorLiveData<List<LevelScore>> = MediatorLiveData<List<LevelScore>>().also {
         it.addSource(_levels){ list ->
            viewModelScope.launch(Dispatchers.IO){
                it.postValue(fillRemainingCells(list))
            }
         }
-    }
+    }*/
+    val levels: LiveData<List<LevelScore>> get() = _levels
 
     private fun fillRemainingCells(list: List<LevelScore>): List<LevelScore>{
         if(list.size == Constants.MAX_LEVEL) return list
