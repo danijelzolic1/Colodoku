@@ -79,7 +79,6 @@ class StartPageFragment : Fragment() {
                 }
 
                 override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    Log.d("StartPageFragmentAD", "Ad was loaded")
                     mInterstitialAd = interstitialAd
                     mInterstitialAd?.fullScreenContentCallback = fullScreenContentCallback
                 }
@@ -88,12 +87,10 @@ class StartPageFragment : Fragment() {
 
     private val fullScreenContentCallback = object: FullScreenContentCallback() {
         override fun onAdDismissedFullScreenContent() {
-            Log.d("StartPageFragmentAD", "Ad was dismissed")
             navigateToGameView()
         }
 
         override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-            Log.e("StartPageFragmentAD", "Ad failed to show: ${adError?.message}")
             navigateToGameView()
         }
 
@@ -113,7 +110,7 @@ class StartPageFragment : Fragment() {
         enableButtons(true)
         binding.playButton.setOnClickListener {
             enableButtons(false)
-            if(shouldShowInterstitialAd()) mInterstitialAd?.show(requireActivity())
+            if(shouldShowInterstitialAd()) mInterstitialAd?.show(requireActivity()) ?: kotlin.run { navigateToGameView() }
             else navigateToGameView()
         }
         binding.levelsButton.setOnClickListener {

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -173,7 +174,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
 
         binding.levelCompleteButtons.nextButton.setOnClickListener {
             if(shouldShowInterstitialAd()){
-                mInterstitialAd?.show(requireActivity())
+                mInterstitialAd?.show(requireActivity()) ?: kotlin.run { loadNextLevel() }
             } else loadNextLevel()
         }
 
@@ -255,7 +256,10 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
                 position = Position.Relative(0.5, 0.3)
             )
         )
-        AnimationManager.scaleUp(binding.levelCompleteLayout, {})
+        getRandomColor()?.let { color ->
+            binding.levelCompleteTitle.backgroundTintList = AppCompatResources.getColorStateList(requireContext(), color)
+        }
+        AnimationManager.scaleUp(binding.levelCompleteCv, {})
         binding.levelCompleteTitle.text = getRandomLevelCompleteTitle()
         binding.levelCompleteInfo.text = getRandomLevelCompleteInfo()
         binding.levelCompleteLayout.show()

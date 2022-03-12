@@ -21,7 +21,7 @@
     <color name="sudoku_beige">#ffC0A080</color>
     <color name="sudoku_white">#ffffffff</color>
     <color name="sudoku_empty">#343a4b</color>
-    <color name="sudoku_erase">#ffFAFAFF</color>
+    <color name="sudoku_erase">#ffF7F7FF</color>
     <color name="sudoku_erase_icon">#ff1E212B</color>
 
     <color name="play_light">#107C9473</color>
@@ -36,8 +36,7 @@
     <color name="save">#ff7C9473</color>
 
     <color name="restart_dialog_icon">#ffffffff</color>
-    <color name="cancel">#ff7F7C82</color>
-    <color name="cancel_light">#107F7C82</color>
+    <color name="cancel">#B0B5B3</color>
     <color name="dialog_desc_color">#ffEDE7D9</color>
 
     <color name="level_gradient">#ff1E212B</color>

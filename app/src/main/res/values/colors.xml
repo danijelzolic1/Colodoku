@@ -38,7 +38,6 @@
 
     <color name="restart_dialog_icon">#ffffffff</color>
     <color name="cancel">#ff7F7C82</color>
-    <color name="cancel_light">#107F7C82</color>
     <color name="dialog_desc_color">#ff444444</color>
 
     <color name="level_gradient">#ffffffff</color>
