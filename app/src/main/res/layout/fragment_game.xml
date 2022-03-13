@@ -16,7 +16,7 @@
             android:id="@+id/main_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -75,7 +75,9 @@
                 app:layout_constraintTop_toBottomOf="@id/grid"
                 app:spanCount="5"
                 tools:itemCount="10"
-                tools:listitem="@layout/fragment_game_color_cell_item" />
+                tools:listitem="@layout/fragment_game_color_cell_item"
+
+                />
 
             <include
                 android:id="@+id/action_buttons"

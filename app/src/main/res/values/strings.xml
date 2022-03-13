@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Colored Sudoku</string>
+    <string name="app_name">Colodoku</string>
     <string name="start_title">COLORED\nSUDOKU</string>
     <string name="play">Play</string>
     <string name="levels">Levels</string>

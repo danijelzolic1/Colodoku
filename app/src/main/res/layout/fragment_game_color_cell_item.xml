@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/cell_padding"
         android:clipToPadding="false"
+        android:clipChildren="false"
         >
 
         <View
@@ -22,7 +23,7 @@
             app:layout_constraintDimensionRatio="1:1"
             android:background="@drawable/circle"
             android:foreground="@drawable/ripple_bg"
-            android:elevation="4dp"
+            android:elevation="2dp"
             />
 
 
