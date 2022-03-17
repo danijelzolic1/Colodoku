@@ -14,6 +14,7 @@ import se.zolda.coloredsudoku.util.AppPreferences
 import se.zolda.coloredsudoku.util.Constants
 import se.zolda.coloredsudoku.util.formatMillisHHmmss
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class LevelsViewModel @Inject constructor(
@@ -21,15 +22,15 @@ class LevelsViewModel @Inject constructor(
 ): ViewModel(), LevelsListener {
 
     private val _levels = levelScoreDao.all()
-    /*val levels : MediatorLiveData<List<LevelScore>> = MediatorLiveData<List<LevelScore>>().also {
-        it.addSource(_levels){ list ->
-           viewModelScope.launch(Dispatchers.IO){
-               it.postValue(fillRemainingCells(list))
-           }
-        }
-    }*/
     val levels: LiveData<List<LevelScore>> get() = _levels
 
+    /*val levels : MediatorLiveData<List<LevelScore>> = MediatorLiveData<List<LevelScore>>().also {
+        it.addSource(_levels){ list ->
+            viewModelScope.launch(Dispatchers.IO){
+                it.postValue(fillRemainingCells(list))
+            }
+        }
+    }
     private fun fillRemainingCells(list: List<LevelScore>): List<LevelScore>{
         if(list.size == Constants.MAX_LEVEL) return list
         return list.toMutableList().let { mutableList ->
@@ -37,14 +38,14 @@ class LevelsViewModel @Inject constructor(
                 mutableList.add(
                     LevelScore(
                         id = i,
-                        time = 0,
-                        locked = true
+                        time = i * Random.nextLong(10000, 60000),
+                        locked = false
                     )
                 )
             }
             mutableList
         }
-    }
+    }*/
 
     override fun onLevelClicked(level: Int) {
 
