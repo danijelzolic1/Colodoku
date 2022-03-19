@@ -78,6 +78,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
     private fun loadRewardedAdd(){
         RewardedAd.load(requireContext(), BuildConfig.REWARD_AD_ID, AdRequest.Builder().build(), object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.e("GameFragment", "Error loading rewarded ad: ${adError.message} - ${adError.code}")
                 mRewardedAd?.fullScreenContentCallback = null
                 mRewardedAd = null
             }
@@ -93,6 +94,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
         InterstitialAd.load(requireContext(), BuildConfig.INTERSTITIAL_AD_ID,
             AdRequest.Builder().build(), object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Log.e("GameFragment", "Error loading interstitial ad: ${adError.message} - ${adError.code}")
                     mInterstitialAd?.fullScreenContentCallback = null
                     mInterstitialAd = null
                 }
