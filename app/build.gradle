@@ -5,6 +5,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdk 31
@@ -13,8 +14,8 @@ android {
         applicationId "se.zolda.coloredsudoku"
         minSdk 23
         targetSdk 31
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 5
+        versionName "1.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -85,7 +86,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'nl.dionsegijn:konfetti-xml:2.0.1'
 
-    implementation 'com.google.android.gms:play-services-ads:20.5.0'
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
 
     //Firebase
     implementation platform('com.google.firebase:firebase-bom:29.2.1')

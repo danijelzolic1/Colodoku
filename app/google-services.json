@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "357879455525",
+    "project_id": "colodoku",
+    "storage_bucket": "colodoku.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357879455525:android:c33d2fe458f6f8afc0c4cc",
+        "android_client_info": {
+          "package_name": "se.zolda.coloredsudoku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357879455525-tmqsjm2c6bhg81bl1hali9cv4sjaechd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0bhPvdqmPPFmjf-_yCXBgJpgQXMo2EO8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357879455525-tmqsjm2c6bhg81bl1hali9cv4sjaechd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-9555368099902044~1381089186"
+    }
+  ],
+  "configuration_version": "1"
+}
