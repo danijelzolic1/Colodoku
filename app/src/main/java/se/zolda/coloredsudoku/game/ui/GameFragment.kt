@@ -2,7 +2,6 @@ package se.zolda.coloredsudoku.game.ui
 
 import android.os.Bundle
 import android.os.SystemClock
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +15,11 @@ import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.OnUserEarnedRewardListener
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.AndroidEntryPoint
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.Position
@@ -28,9 +27,9 @@ import nl.dionsegijn.konfetti.core.emitter.Emitter
 import nl.dionsegijn.konfetti.core.models.Size
 import se.zolda.coloredsudoku.BuildConfig
 import se.zolda.coloredsudoku.R
+import se.zolda.coloredsudoku.data.model.SudokuBoardState
 import se.zolda.coloredsudoku.databinding.FragmentGameBinding
 import se.zolda.coloredsudoku.game.color.ColorGridAdapter
-import se.zolda.coloredsudoku.data.model.SudokuBoardState
 import se.zolda.coloredsudoku.game.ui.dialog.RestartCurrentLevelDialog
 import se.zolda.coloredsudoku.game.ui.dialog.RestartCurrentLevelListener
 import se.zolda.coloredsudoku.game.viewmodel.GameViewModel
@@ -78,7 +77,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
     private fun loadRewardedAdd(){
         RewardedAd.load(requireContext(), BuildConfig.REWARD_AD_ID, AdRequest.Builder().build(), object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.e("GameFragment", "Error loading rewarded ad: ${adError.message} - ${adError.code}")
+                FirebaseCrashlytics.getInstance().log("GamPage failed to LOAD rewarded ad. Code: ${adError.code} Message: ${adError.message}")
                 mRewardedAd?.fullScreenContentCallback = null
                 mRewardedAd = null
             }
@@ -94,7 +93,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
         InterstitialAd.load(requireContext(), BuildConfig.INTERSTITIAL_AD_ID,
             AdRequest.Builder().build(), object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.e("GameFragment", "Error loading interstitial ad: ${adError.message} - ${adError.code}")
+                    FirebaseCrashlytics.getInstance().log("GamPage failed to LOAD interstitial ad. Code: ${adError.code} Message: ${adError.message}")
                     mInterstitialAd?.fullScreenContentCallback = null
                     mInterstitialAd = null
                 }
@@ -113,6 +112,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
         }
 
         override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+            FirebaseCrashlytics.getInstance().log("GamePage failed to SHOW rewarded ad. Code: ${adError?.code} Message: ${adError?.message}")
         }
 
         override fun onAdShowedFullScreenContent() {
@@ -127,6 +127,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
         }
 
         override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+            FirebaseCrashlytics.getInstance().log("GamePage failed to SHOW interstitial ad. Code: ${adError?.code} Message: ${adError?.message}")
             loadNextLevel()
         }
 

@@ -30,10 +30,10 @@ val Number.dp2px: Int
     get() = (this.toFloat() * displayMetrics.density).roundToInt()
 
 fun shouldShowInterstitialAd(): Boolean{
-    return when(val level = AppPreferences.currentLevel){
+    return (when(val level = AppPreferences.currentLevel){
         0 -> false
-        else -> level % 4 == 0
-    }
+        else -> level % 3 == 0
+    })
 }
 
 fun Context.isDarkThemeOn(): Boolean {

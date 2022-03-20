@@ -14,6 +14,7 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.AndroidEntryPoint
 import se.zolda.coloredsudoku.BuildConfig
 import se.zolda.coloredsudoku.R
@@ -30,7 +31,6 @@ class StartPageFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentStartPageBinding.inflate(layoutInflater)
-        loadInterstitialAd()
     }
 
     override fun onCreateView(
@@ -38,6 +38,7 @@ class StartPageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        loadInterstitialAd()
         return binding.root
     }
 
@@ -73,7 +74,7 @@ class StartPageFragment : Fragment() {
         InterstitialAd.load(requireContext(), BuildConfig.INTERSTITIAL_AD_ID,
             AdRequest.Builder().build(), object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.e("StartPageFragmentAD", adError.message)
+                    FirebaseCrashlytics.getInstance().log("StartPage failed to LOAD interstitial ad. Code: ${adError.code} Message: ${adError.message}")
                     mInterstitialAd?.fullScreenContentCallback = null
                     mInterstitialAd = null
                 }
@@ -87,17 +88,16 @@ class StartPageFragment : Fragment() {
 
     private val fullScreenContentCallback = object: FullScreenContentCallback() {
         override fun onAdDismissedFullScreenContent() {
+            mInterstitialAd = null
             navigateToGameView()
         }
 
         override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+            FirebaseCrashlytics.getInstance().log("StartPage failed to SHOW interstitial ad. Code: ${adError?.code} Message: ${adError?.message}")
             navigateToGameView()
         }
 
-        override fun onAdShowedFullScreenContent() {
-            Log.d("StartPageFragmentAD", "Ad showed fullscreen content")
-            loadInterstitialAd()
-        }
+        override fun onAdShowedFullScreenContent() {}
     }
 
     private fun navigateToGameView(){
