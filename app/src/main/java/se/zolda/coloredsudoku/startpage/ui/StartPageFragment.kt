@@ -1,32 +1,24 @@
 package se.zolda.coloredsudoku.startpage.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.AndroidEntryPoint
-import se.zolda.coloredsudoku.BuildConfig
 import se.zolda.coloredsudoku.R
 import se.zolda.coloredsudoku.databinding.FragmentStartPageBinding
-import se.zolda.coloredsudoku.util.*
-import kotlin.random.Random
+import se.zolda.coloredsudoku.util.AnimationManager
+import se.zolda.coloredsudoku.util.AppPreferences
+import se.zolda.coloredsudoku.util.getRandomColor
+import se.zolda.coloredsudoku.util.show
 
 @AndroidEntryPoint
 class StartPageFragment : Fragment() {
     private lateinit var binding: FragmentStartPageBinding
     private var firstShow = true
-    private var mInterstitialAd: InterstitialAd? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +30,6 @@ class StartPageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        loadInterstitialAd()
         return binding.root
     }
 
@@ -69,37 +60,6 @@ class StartPageFragment : Fragment() {
         }
     }
 
-
-    private fun loadInterstitialAd(){
-        InterstitialAd.load(requireContext(), BuildConfig.INTERSTITIAL_AD_ID,
-            AdRequest.Builder().build(), object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    FirebaseCrashlytics.getInstance().log("StartPage failed to LOAD interstitial ad. Code: ${adError.code} Message: ${adError.message}")
-                    mInterstitialAd?.fullScreenContentCallback = null
-                    mInterstitialAd = null
-                }
-
-                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    mInterstitialAd = interstitialAd
-                    mInterstitialAd?.fullScreenContentCallback = fullScreenContentCallback
-                }
-            })
-    }
-
-    private val fullScreenContentCallback = object: FullScreenContentCallback() {
-        override fun onAdDismissedFullScreenContent() {
-            mInterstitialAd = null
-            navigateToGameView()
-        }
-
-        override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-            FirebaseCrashlytics.getInstance().log("StartPage failed to SHOW interstitial ad. Code: ${adError?.code} Message: ${adError?.message}")
-            navigateToGameView()
-        }
-
-        override fun onAdShowedFullScreenContent() {}
-    }
-
     private fun navigateToGameView(){
         AnimationManager.reverseAlphaAnimation(binding.mainLayout) {
             findNavController().navigate(R.id.action_startPageFragment_to_gameFragment)
@@ -110,8 +70,7 @@ class StartPageFragment : Fragment() {
         enableButtons(true)
         binding.playButton.setOnClickListener {
             enableButtons(false)
-            if(shouldShowInterstitialAd()) mInterstitialAd?.show(requireActivity()) ?: kotlin.run { navigateToGameView() }
-            else navigateToGameView()
+            navigateToGameView()
         }
         binding.levelsButton.setOnClickListener {
             enableButtons(false)

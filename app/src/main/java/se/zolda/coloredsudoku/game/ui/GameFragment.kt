@@ -15,8 +15,6 @@ import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -48,16 +46,11 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
     private var gameState: SudokuBoardState = SudokuBoardState.SOLVED
     private var firstUpdate = true
 
-    private var mInterstitialAd: InterstitialAd? = null
-    private var mRewardedAd: RewardedAd? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentGameBinding.inflate(layoutInflater)
         setupGrid()
         setupViews()
-        loadInterstitialAd()
-        loadRewardedAdd()
     }
 
     override fun onCreateView(
@@ -78,37 +71,22 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
         RewardedAd.load(requireContext(), BuildConfig.REWARD_AD_ID, AdRequest.Builder().build(), object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 FirebaseCrashlytics.getInstance().log("GamPage failed to LOAD rewarded ad. Code: ${adError.code} Message: ${adError.message}")
-                mRewardedAd?.fullScreenContentCallback = null
-                mRewardedAd = null
             }
 
             override fun onAdLoaded(rewardedAd: RewardedAd) {
-                mRewardedAd = rewardedAd
-                mRewardedAd?.fullScreenContentCallback = rewardedFullScreenContentCallback
+                rewardedAd.fullScreenContentCallback = rewardedFullScreenContentCallback
+                rewardedAd.show(
+                    requireActivity()
+                ) { _ ->
+                    AppPreferences.numberOfHints += 1
+                    viewModel.onHintRewarded()
+                }
             }
         })
     }
 
-    private fun loadInterstitialAd(){
-        InterstitialAd.load(requireContext(), BuildConfig.INTERSTITIAL_AD_ID,
-            AdRequest.Builder().build(), object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    FirebaseCrashlytics.getInstance().log("GamPage failed to LOAD interstitial ad. Code: ${adError.code} Message: ${adError.message}")
-                    mInterstitialAd?.fullScreenContentCallback = null
-                    mInterstitialAd = null
-                }
-
-                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    mInterstitialAd = interstitialAd
-                    mInterstitialAd?.fullScreenContentCallback = interstitialFullScreenContentCallback
-                }
-            })
-    }
-
     private val rewardedFullScreenContentCallback = object: FullScreenContentCallback() {
         override fun onAdDismissedFullScreenContent() {
-            mRewardedAd = null
-            loadRewardedAdd()
         }
 
         override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
@@ -119,34 +97,9 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
         }
     }
 
-    private val interstitialFullScreenContentCallback = object: FullScreenContentCallback() {
-        override fun onAdDismissedFullScreenContent() {
-            mInterstitialAd = null
-            loadInterstitialAd()
-            loadNextLevel()
-        }
-
-        override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-            FirebaseCrashlytics.getInstance().log("GamePage failed to SHOW interstitial ad. Code: ${adError?.code} Message: ${adError?.message}")
-            loadNextLevel()
-        }
-
-        override fun onAdShowedFullScreenContent() {
-        }
-    }
-
     override fun onPause() {
         super.onPause()
         binding.clock.stop()
-    }
-
-    private fun showHintRewardAd(){
-        mRewardedAd?.show(
-            requireActivity()
-        ) { _ ->
-            AppPreferences.numberOfHints += 1
-            viewModel.onHintRewarded()
-        }
     }
 
     private fun setupViews() {
@@ -165,7 +118,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
             }
         }
         binding.actionButtons.helpButton.setOnClickListener {
-            showHintRewardAd()
+            loadRewardedAdd()
         }
 
         binding.levelCompleteButtons.homeButton.setOnClickListener {
@@ -176,9 +129,7 @@ class GameFragment : Fragment(), RestartCurrentLevelListener {
         }
 
         binding.levelCompleteButtons.nextButton.setOnClickListener {
-            if(shouldShowInterstitialAd()){
-                mInterstitialAd?.show(requireActivity()) ?: kotlin.run { loadNextLevel() }
-            } else loadNextLevel()
+            loadNextLevel()
         }
 
         binding.clock.setOnChronometerTickListener {
